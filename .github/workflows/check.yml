@@ -1,0 +1,25 @@
+name: Check DouDB
+on:
+  push:
+    branches: [main]
+  pull_request:
+permissions:
+  contents: read
+jobs:
+  check:
+    runs-on: macos-15
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - uses: actions/setup-go@v5
+        with:
+          go-version: "1.26.4"
+          cache: false
+      - run: npm test
+      - run: npm run build
+      - run: npm run smoke
+      - name: Check JavaScript syntax
+        run: find ui scripts -name '*.js' -o -name '*.mjs' | while read -r file; do node --check "$file" || exit 1; done

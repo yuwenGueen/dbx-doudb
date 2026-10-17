@@ -1,0 +1,278 @@
+/* Public cards are anchored to seats, independent of the selected visual theme. */
+.poker-table {
+  height: max(
+    405px,
+    calc(190px + (var(--top-play-rows) + var(--self-play-rows)) * 72px),
+    calc(220px + var(--side-play-rows) * 72px)
+  );
+}
+.identity-strip .turn-status {
+  display: block;
+  width: 190px;
+  min-width: 155px;
+  flex-shrink: 0;
+  margin-left: auto;
+}
+.turn-status > div:first-child {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+}
+.turn-status .turn-label {
+  margin: 0;
+  font-size: 13px;
+}
+.turn-status .countdown {
+  min-width: 35px;
+  text-align: right;
+}
+.turn-status .turn-progress {
+  width: 100%;
+  margin: 6px 0 0;
+}
+.table-idle {
+  position: absolute;
+  left: 50%;
+  top: 47%;
+  transform: translate(-50%, -50%);
+  opacity: 0.6;
+  pointer-events: none;
+}
+.has-plays .table-idle,
+.has-plays .table-brand {
+  visibility: hidden;
+}
+.seat-play {
+  position: absolute;
+  z-index: 4;
+  width: clamp(130px, 18vw, 240px);
+  text-align: left;
+}
+.opponent.left .seat-play {
+  left: calc(100% + 16px);
+  top: 26px;
+}
+.opponent.right .seat-play {
+  right: calc(100% + 16px);
+  top: 26px;
+  text-align: right;
+}
+.opponent.top .seat-play {
+  top: calc(100% + 8px);
+  left: 50%;
+  transform: translateX(-50%);
+  width: clamp(150px, 23vw, 300px);
+  text-align: center;
+}
+.seat-play.self {
+  left: 50%;
+  bottom: 25px;
+  transform: translateX(-50%);
+  width: clamp(150px, 25vw, 320px);
+  text-align: center;
+}
+.play-caption {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  margin: 0 0 7px;
+  color: var(--muted);
+  font-size: 10px;
+  line-height: 1.5;
+  white-space: nowrap;
+}
+.play-caption strong {
+  color: var(--ink);
+  font-size: 10px;
+  font-weight: 600;
+}
+.play-caption > span {
+  border-radius: 4px;
+  padding: 1px 5px;
+}
+.current-play .play-caption > span {
+  color: var(--accent);
+  background: color-mix(in srgb, var(--accent) 12%, transparent);
+  border: 1px solid color-mix(in srgb, var(--accent) 35%, transparent);
+}
+.previous-play .played-cards {
+  opacity: 0.62;
+}
+.played-cards {
+  display: grid;
+  grid-template-columns: repeat(var(--play-columns), minmax(0, 1fr));
+  row-gap: 7px;
+  padding-right: 17px;
+  width: min(100%, calc(var(--play-columns) * 25px + 17px));
+}
+.played-cards .mini.card-face {
+  margin: 0;
+  width: 42px;
+  height: 60px;
+}
+.current-play .played-cards {
+  filter: drop-shadow(0 2px 4px #0003);
+}
+.current-play .card-face {
+  outline: 1px solid color-mix(in srgb, var(--accent) 35%, transparent);
+}
+.seat-play.right .played-cards {
+  margin-left: auto;
+}
+.seat-play.right .play-caption {
+  justify-content: flex-end;
+}
+.seat-play.top .played-cards,
+.seat-play.self .played-cards {
+  margin-inline: auto;
+}
+.seat-play.top .play-caption,
+.seat-play.self .play-caption {
+  justify-content: center;
+}
+.passed-play > span {
+  display: inline-block;
+  color: var(--gold);
+  border: 1px solid #ffffff20;
+  background: #0002;
+  border-radius: 6px;
+  padding: 7px 12px;
+  font-size: 14px;
+}
+@media (max-width: 1150px) and (min-width: 851px) {
+  .opponent {
+    min-width: 130px;
+    max-width: 150px;
+  }
+  .opponent.top {
+    min-width: 160px;
+  }
+  .seat-play {
+    width: clamp(130px, 17vw, 190px);
+  }
+  .opponent.left .seat-play {
+    left: calc(100% + 8px);
+  }
+  .opponent.right .seat-play {
+    right: calc(100% + 8px);
+  }
+  .opponent.top .seat-play {
+    width: 200px;
+  }
+}
+@media (max-width: 850px) {
+  .identity-strip {
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+  .turn-status {
+    min-width: 140px;
+  }
+  .turn-status .turn-label {
+    white-space: nowrap;
+    font-size: 11px;
+  }
+  .turn-status .countdown {
+    font-size: 10px;
+  }
+  .poker-table {
+    --top-seat-space: 112px;
+    min-height: 460px;
+    height: calc(
+      var(--top-seat-space) + var(--top-play-rows) * 72px + 180px +
+        var(--narrow-side-play-rows) * 72px + var(--self-play-rows) * 72px +
+        60px
+    );
+  }
+  .poker-table[data-capacity="3"] {
+    --top-seat-space: 55px;
+  }
+  .opponent.left,
+  .opponent.right {
+    top: calc(var(--top-seat-space) + var(--top-play-rows) * 72px);
+  }
+  .opponent.left .seat-play {
+    left: 0;
+    top: calc(100% + 8px);
+  }
+  .opponent.right .seat-play {
+    right: 0;
+    top: calc(100% + 8px);
+  }
+  .opponent.left .seat-play,
+  .opponent.right .seat-play {
+    width: clamp(115px, 24vw, 180px);
+  }
+  .opponent.left .played-cards,
+  .opponent.right .played-cards {
+    grid-template-columns: repeat(var(--narrow-columns), minmax(0, 1fr));
+    width: min(100%, calc(var(--narrow-columns) * 23px + 15px));
+  }
+  .opponent.top .seat-play {
+    width: clamp(160px, 32vw, 240px);
+  }
+  .played-cards {
+    padding-right: 15px;
+  }
+  .played-cards .mini.card-face {
+    width: 38px;
+    height: 56px;
+  }
+  .play-caption,
+  .play-caption strong {
+    font-size: 9px;
+  }
+  .play-caption {
+    flex-wrap: wrap;
+    gap: 3px 6px;
+  }
+}
+@media (max-width: 550px) {
+  .identity-strip {
+    gap: 9px;
+  }
+  .identity-strip > div:first-child {
+    width: 100%;
+  }
+  .identity-strip .turn-status {
+    width: 100%;
+    min-width: 0;
+  }
+  .turn-status > div:first-child {
+    gap: 12px;
+  }
+  .turn-status .turn-progress {
+    height: 2px;
+    margin-top: 4px;
+  }
+  .opponent.top {
+    top: 7px;
+  }
+  .opponent.left {
+    left: 8px;
+  }
+  .opponent.right {
+    right: 8px;
+  }
+  .opponent.left .seat-play,
+  .opponent.right .seat-play {
+    width: 130px;
+  }
+  .seat-play.self {
+    left: auto;
+    right: 15px;
+    transform: none;
+    width: calc(100% - 122px);
+    bottom: 22px;
+  }
+  .seat-play.self .played-cards {
+    width: min(100%, calc(var(--play-columns) * 23px + 15px));
+  }
+  .seat-play.self .play-caption {
+    justify-content: flex-end;
+  }
+  .seat-play.self .played-cards {
+    margin-right: 0;
+  }
+}

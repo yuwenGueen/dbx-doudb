@@ -1,0 +1,9 @@
+{
+  "name": "dbx-doudb",
+  "version": "0.1.4",
+  "private": true,
+  "type": "module",
+  "description": "Standalone DouDB plugin for DBX",
+  "scripts": {"dev":"node scripts/run.mjs dev","build":"node scripts/run.mjs build","test":"node scripts/run.mjs test","smoke":"node scripts/smoke.mjs"},
+  "engines": {"node": ">=22", "go": ">=1.22"}
+}

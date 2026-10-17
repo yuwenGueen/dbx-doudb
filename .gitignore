@@ -1,0 +1,15 @@
+node_modules/
+dist/
+.dbx-dev/
+backend/target/
+.env
+.env.*
+!.env.example
+.DS_Store
+.cache/
+bin/
+
+# Local design iterations stay local; publish only current synthetic previews.
+/designs/*
+!/designs/doudb-responsive-lobby.png
+!/designs/doudb-responsive-table.png

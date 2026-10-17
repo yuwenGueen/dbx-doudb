@@ -1,0 +1,3 @@
+DBX Go Plugin SDK, vendored from t8y2/dbx (host checkout version 0.6.36).
+Source: https://github.com/t8y2/dbx/tree/main/plugins/sdk/go/dbx-plugin-sdk
+Upstream files sdk.go and go.mod are unchanged. License: Apache-2.0.

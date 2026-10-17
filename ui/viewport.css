@@ -1,0 +1,286 @@
+/* Layout belongs to the plugin viewport; themes only supply its appearance. */
+html,
+body {
+  height: 100%;
+  min-width: 0;
+  overflow: hidden;
+}
+
+#app {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  height: 100dvh;
+  min-height: 0;
+}
+
+#app > main {
+  flex: 1;
+  min-height: 0;
+  width: 100%;
+  overflow: auto;
+  overscroll-behavior: contain;
+  scrollbar-gutter: stable;
+}
+
+.topbar {
+  flex: none;
+  height: clamp(54px, 8vh, 68px);
+  min-height: 0;
+  padding: 8px clamp(12px, 2vw, 28px);
+  gap: 16px;
+}
+
+.brand strong { font-size: clamp(24px, 2.5vw, 30px); }
+.brand-mark { height: 36px; }
+.top-controls { min-width: 0; gap: clamp(6px, 1vw, 14px); }
+.topbar .button { min-height: 34px; padding: 7px 12px; }
+.topbar .profile-button { min-width: 0; }
+
+.footer {
+  flex: none;
+  width: 100%;
+  max-width: none;
+  margin: 0;
+  padding: 8px clamp(12px, 2vw, 28px);
+  line-height: 16px;
+}
+
+.lobby {
+  display: grid;
+  grid-template-rows: auto minmax(min-content, 1fr) auto;
+  gap: 14px;
+  --lobby-title-size: clamp(46px, 7.4vh, 66px);
+  --lobby-description-size: clamp(16px, 2.3vh, 20px);
+  margin: 0 auto;
+  padding: clamp(12px, 2.8vh, 28px) clamp(16px, 3vw, 40px);
+}
+
+.welcome { margin-bottom: 0; }
+.welcome h1 { font-size: clamp(28px, 4.4vh, 40px); margin-bottom: 7px; }
+.welcome .eyebrow { margin-bottom: 7px; }
+.welcome p:last-child { font-size: 14px; }
+.lobby-hero { min-height: 0; }
+.hero-copy {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  width: 55%;
+  padding: clamp(16px, 2.8vh, 28px) clamp(18px, 2.6vw, 34px);
+}
+.hero-copy h2 {
+  font-size: var(--lobby-title-size);
+  margin: clamp(12px, 2vh, 20px) 0 8px;
+}
+.hero-description { font-size: var(--lobby-description-size); margin-bottom: 10px; }
+.bot-preview { margin: 12px 0; gap: 16px; }
+.hero-actions { width: 100%; flex-wrap: nowrap; margin-top: 16px; gap: 12px; }
+.hero-actions .button {
+  flex: 1;
+  min-width: 0;
+  min-height: 44px;
+  padding: 10px 14px;
+  font-size: 16px;
+}
+.hero-copy .helper { width: 100%; margin-top: 8px; }
+.hero-art { inset: 0 0 0 50%; }
+.fan-card {
+  top: 50%;
+  left: calc(16% + var(--i) * clamp(22px, 3vw, 38px));
+  width: clamp(112px, 12vw, 155px);
+  height: clamp(168px, 18vw, 228px);
+  translate: 0 -50%;
+}
+.fan-card .hero-card { width: 100%; height: 100%; }
+.lobby-bottom { margin-top: 0; gap: 14px; }
+.lobby-bottom .panel { padding: 14px 18px; }
+.lobby-bottom .empty-rooms { min-height: 65px; }
+.lobby-bottom .room-list { max-height: 150px; overflow-y: auto; }
+
+#app > .game-scene {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  padding: 0 clamp(10px, 1.8vw, 25px);
+  margin: 0 auto;
+  scrollbar-gutter: auto;
+}
+.game-scene > .scene-heading {
+  flex: none;
+  margin: 9px 0;
+  gap: 10px;
+}
+.scene-heading .button { min-height: 32px; padding: 7px 10px; font-size: 12px; }
+.game-scene > .identity-strip { flex: none; padding: 8px 12px; min-height: 46px; }
+.game-scene > .connection-banner { flex: none; }
+.game-scene > .table-wrap {
+  flex: 1;
+  min-height: 0;
+  overflow: auto;
+  overscroll-behavior: contain;
+  padding: 8px clamp(4px, 1.6vw, 24px) 4px;
+}
+.poker-table {
+  height: 100%;
+  min-height: max(
+    280px,
+    calc(190px + (var(--top-play-rows) + var(--self-play-rows)) * 72px),
+    calc(220px + var(--side-play-rows) * 72px)
+  );
+}
+.poker-table[data-capacity="4"] { min-height: max(280px, calc(190px + (var(--top-play-rows) + var(--self-play-rows)) * 72px), calc(220px + var(--side-play-rows) * 72px)); }
+#app[data-phase="finished"] .poker-table { min-height: 400px; }
+.hand-area { flex: none; margin-top: 8px; min-height: 0; padding-bottom: 8px; }
+.action-bar { min-height: 38px; }
+.action-bar .button { min-height: 36px; padding: 7px 16px; }
+.selection-feedback { height: 24px; }
+.hand { min-height: 0; padding-top: 22px; padding-bottom: 4px; }
+.hand-scroll { padding-bottom: 5px; }
+.hand-footer { line-height: 14px; }
+.room-waiting { margin: 0 auto; }
+.waiting-content { margin: clamp(20px, 5vh, 60px) auto; }
+
+/* Short desktop panels: spend the height on controls, not decoration. */
+@media (min-width: 701px) and (max-height: 760px) {
+  .lobby { --lobby-title-size: 48px; --lobby-description-size: 17px; padding-block: 14px; }
+  .welcome { margin-bottom: 0; }
+  .welcome > div { display: flex; align-items: baseline; gap: 16px; flex-wrap: wrap; }
+  .welcome .eyebrow { display: none; }
+  .welcome h1 { font-size: 30px; margin: 0; }
+  .hero-copy { padding-block: 16px; }
+  .hero-copy h2 { margin-top: 12px; }
+  .hero-copy .segmented button { min-width: 72px; padding: 7px 16px; font-size: 14px; }
+  .bot-preview { display: none; }
+  .hero-actions { margin-top: 12px; }
+  .hero-actions .button { min-height: 40px; padding-block: 8px; }
+  .lobby-bottom { margin-top: 0; }
+  .lobby-bottom .panel { padding: 10px 14px; }
+  .lobby-bottom .empty-rooms { min-height: 54px; }
+  .lobby-bottom .skin-sample { height: 48px; width: 34px; }
+  .lobby-bottom .skin-sample b { font-size: 16px; padding: 3px; }
+  .lobby-bottom .skin-option { gap: 4px; }
+  .lobby-bottom .skins-panel p { margin: 6px 0 0; }
+}
+
+@media (min-width: 701px) and (max-width: 1000px) {
+  .brand-caption, .boss-button kbd, .profile-button > span:last-child { display: none; }
+  .topbar { flex-wrap: nowrap; gap: 10px; }
+  .top-controls { flex: initial; }
+  .hero-copy { width: 60%; padding-inline: 20px; }
+  .hero-art { left: 58%; }
+  .lobby-bottom { grid-template-columns: minmax(0, 1.5fr) minmax(230px, 1fr); }
+  .lobby-bottom .skins-panel { gap: 8px; }
+  .lobby-bottom .skins-panel p { display: none; }
+  .section-heading { gap: 6px; }
+  .section-heading h3, .skins-panel h3 { font-size: 14px; }
+  .section-heading > div { gap: 4px; }
+  .section-heading .button { min-height: 30px; font-size: 11px; padding: 6px; }
+}
+
+@media (max-width: 850px) {
+  .game-scene > .scene-heading { flex-wrap: wrap; gap: 6px; margin-block: 6px; }
+  .scene-heading > div:last-child { display: flex; gap: 5px; }
+  .scene-heading .button { font-size: 10px; padding: 6px; }
+  .game-scene > .identity-strip { gap: 6px; }
+  .identity-goal { display: none; }
+  .identity-strip > div:first-child { width: auto; }
+  .identity-strip .turn-status { width: auto; min-width: 145px; margin-left: auto; }
+  .poker-table,
+  .poker-table[data-capacity="4"] {
+    min-height: max(400px, calc(var(--top-seat-space) + var(--top-play-rows) * 72px + 180px + var(--narrow-side-play-rows) * 72px + var(--self-play-rows) * 72px + 60px));
+  }
+  .hand-instructions { display: none; }
+  .hand-footer { margin-top: 0; }
+}
+
+@media (max-width: 700px) {
+  .topbar { height: auto; padding: 8px 12px; flex-wrap: wrap; gap: 6px 12px; }
+  .brand { margin: 0; gap: 8px; }
+  .brand-mark { width: 30px; height: 30px; }
+  .brand-mark svg { width: 27px; height: 30px; }
+  .brand-mark b { font-size: 23px; }
+  .top-controls { justify-content: flex-end; flex-wrap: wrap; gap: 6px; }
+  .topbar .button { min-height: 30px; padding: 6px 8px; font-size: 11px; }
+  .topbar .profile-button { display: none; }
+  .beans { font-size: 12px; }
+  .beans > span { font-size: 20px; }
+  .theme-switch button { font-size: 11px; padding: 6px 8px; }
+  .boss-button { display: none; }
+  .lobby { display: block; --lobby-title-size: 44px; --lobby-description-size: 16px; padding: 16px 12px; }
+  .welcome { margin-bottom: 14px; }
+  .welcome h1 { font-size: 30px; }
+  .welcome .eyebrow { display: none; }
+  .hero-copy { width: 100%; padding: 18px; }
+  .hero-art { inset: 0 0 80px 52%; opacity: .25; }
+  .hero-copy h2 { margin-top: 18px; }
+  .hero-actions { gap: 8px; }
+  .hero-actions .button { font-size: 14px; min-width: 0; padding-inline: 8px; }
+  .hero-copy .helper { text-align: center; }
+  .lobby-bottom { grid-template-columns: 1fr; gap: 12px; margin-top: 12px; }
+  .lobby-bottom .panel { padding: 12px 14px; }
+  .footer { padding: 5px 12px; font-size: 10px; }
+  .footer > span:last-child { max-width: none; }
+  .hand-area { padding-bottom: 5px; }
+  .hand-scroll { margin-inline: 0; padding-inline: 0; }
+  .selection-feedback { gap: 6px; font-size: 10px; }
+  .selection-feedback strong { font-size: 10px; }
+}
+
+@media (max-height: 600px) {
+  .topbar { padding-block: 5px; }
+  .game-scene > .scene-heading { margin-block: 5px; }
+  .game-scene > .identity-strip { min-height: 38px; padding-block: 5px; }
+  .hand-area { margin-top: 5px; padding-bottom: 4px; }
+  .hand-card, .hand-card > .card-face { height: 96px; }
+  .selection-feedback { height: 20px; }
+  .action-bar { min-height: 32px; }
+  .action-bar .button { min-height: 30px; padding-block: 5px; }
+  .footer { padding-block: 4px; }
+}
+
+@media (min-width: 701px) and (max-height: 620px) {
+  .lobby { --lobby-title-size: 42px; padding-block: 10px; gap: 10px; }
+  .hero-copy { padding-block: 12px; }
+  .hero-copy h2 { margin-top: 8px; margin-bottom: 5px; }
+  .hero-description { margin-bottom: 6px; }
+  .hero-copy .helper { margin-top: 5px; }
+  .hero-actions { margin-top: 8px; }
+}
+
+@media (min-width: 851px) and (max-height: 700px) {
+  .topbar { height: 48px; padding-block: 5px; }
+  .brand-mark { height: 30px; }
+  .brand-mark svg { height: 30px; }
+  .game-scene > .scene-heading { margin-block: 5px; }
+  .game-scene > .identity-strip { min-height: 38px; padding-block: 5px; }
+  .role-badge.large-role { padding-block: 3px; }
+  .hand-area { margin-top: 4px; padding-bottom: 4px; }
+  .hand-card, .hand-card > .card-face { height: 88px; width: 60px; }
+  .hand-card .card-index b { font-size: 22px; }
+  .hand-card .card-index i { font-size: 15px; }
+  .hand-card .card-center { font-size: 38px; }
+  .selection-feedback { height: 20px; }
+  .action-bar { min-height: 30px; }
+  .action-bar .button { min-height: 30px; padding-block: 5px; }
+  .poker-table,
+  .poker-table[data-capacity="4"] {
+    min-height: max(230px, calc(190px + (var(--top-play-rows) + var(--self-play-rows)) * 72px), calc(220px + var(--side-play-rows) * 72px));
+  }
+  .footer { padding-block: 4px; }
+}
+
+@media (min-width: 851px) and (max-height: 800px) {
+  .opponent { padding: 5px 8px; min-height: 90px; }
+  .opponent.left, .opponent.right { top: 55px; }
+  .opponent.top { top: 3px; min-height: 60px; }
+  .opponent .avatar { height: 32px; width: 32px; }
+  .opponent .avatar-crest { display: none; }
+  .opponent .player-info small { margin-top: 3px; }
+  .opponent .opponent-cards { margin-top: 5px; }
+  .opponent-cards .mini { height: 36px; width: 25px; }
+  .own-player { bottom: 8px; padding: 5px 8px; }
+  .own-player .avatar-wrap { display: none; }
+  .own-player > div { flex-direction: row; align-items: center; gap: 8px; }
+  .footer { padding-block: 4px; }
+}
